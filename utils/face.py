@@ -2,7 +2,7 @@ import cv2
 import streamlit as st
 from feat import Detector
 
-@st.cache
+
 def load_detector():
     return Detector(
         face_model = "retinaface",
