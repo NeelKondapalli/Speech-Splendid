@@ -97,7 +97,7 @@ def analyze_speech(filename):
     with c2:
         with st.expander("Metric Information"):
                 st.write("Overall Sentiment: The general emotion in the text. Calculated via the compound score")
-                st.write("Compound: The sum of the positive, neutral, and negative scores which is normalized between -1 and 1.")
+                st.write("Compound: The weighted sum of the positive, neutral, and negative scores which is normalized between -1 and 1.")
                 st.write("Filler Word Count: Filler words such as 'uh' and 'um' drastically decrease the confidence of your speech.")
                 st.write("Hedging Language: Language such as 'I mean' or 'I guess' indicate a lack of confidence")
                 st.write("Empty Adverbs: Adverbs such as 'really' or 'very' should be avoided and replaced with better language.")

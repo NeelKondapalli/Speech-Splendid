@@ -15,7 +15,7 @@ def analyze_face(tmp_file):
     
     cap = cv2.VideoCapture(tmp_file.name)
     frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    video_prediction = detector.detect_video(tmp_file.name, skip_frames = round(frames/5))
+    video_prediction = detector.detect_video(tmp_file.name, skip_frames = round(frames/10))
     emotions = ['fear', 'happiness', 'sadness', 'surprise', 'neutral', 'anger', 'disgust']
     readings = []
     for x in emotions:
