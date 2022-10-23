@@ -8,11 +8,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 
-authenticator = IAMAuthenticator("8vRvzpt7bw6TNt41_pjVQD6K2B8XHpSQCh34x3fd-18D")
-#authenticator = IAMAuthenticator(st.secrets["key"])
+authenticator = IAMAuthenticator(st.secrets["key"])
 speech_to_text = SpeechToTextV1(authenticator=authenticator)
-#speech_to_text.set_service_url(st.secrets["url"])
-speech_to_text.set_service_url("https://api.au-syd.speech-to-text.watson.cloud.ibm.com/instances/28117f0d-e26f-4c57-b91a-7e41a5548d0c")
+speech_to_text.set_service_url(st.secrets["url"])
 def sentiment_vader(sentence):
     sid_obj = SentimentIntensityAnalyzer()
 
