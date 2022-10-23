@@ -8,7 +8,7 @@ inputCont = st.container()
 with inputCont:
     filename = st.file_uploader("Choose a recorded speech with your face clearly in frame", accept_multiple_files = False)
     st.write("\n\n")
-speech = st.checkbox('Audio Analysis')
+audio = st.checkbox('Audio Analysis')
 face = st.checkbox('Face Analysis')
 if filename is not None:
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file: 
