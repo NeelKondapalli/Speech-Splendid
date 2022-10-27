@@ -1,3 +1,4 @@
+import os
 import wave
 import contextlib
 import streamlit as st
@@ -5,9 +6,11 @@ import moviepy.editor as mp
 from ibm_watson import SpeechToTextV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-
-
-
+from expertai.nlapi.cloud.client import ExpertAiClient
+#DELETE LATER
+os.environ["EAI_USERNAME"] = st.secrets["username"]
+os.environ["EAI_PASSWORD"] = st.secrets["password"]
+client = ExpertAiClient()
 authenticator = IAMAuthenticator(st.secrets["key"])
 speech_to_text = SpeechToTextV1(authenticator=authenticator)
 speech_to_text.set_service_url(st.secrets["url"])
@@ -68,6 +71,7 @@ def analyze_speech(filename):
     c3.metric("Positive", str(round(positive))+ "%")
     c4.metric("Neutral", str(round(neutral)) + "%")
     c5.metric("Negative", str(round(negative)) + "%")
+
     c1, c2 = st.columns(2)
     with c1:
         if seconds:
@@ -99,7 +103,25 @@ def analyze_speech(filename):
                 st.write("Filler Word Count: Filler words such as 'uh' and 'um' drastically decrease the confidence of your speech.")
                 st.write("Hedging Language: Language such as 'I mean' or 'I guess' indicate a lack of confidence")
                 st.write("Empty Adverbs: Adverbs such as 'really' or 'very' should be avoided and replaced with better language.")
-        
+        with st.expander("View Linguistic Analysis"):
+            taxonomy = 'iptc'
+            language= 'en'
+            output_cats = client.classification(body={"document": {"text": transcript}}, params={'taxonomy': taxonomy, 'language': language})
+            cats = []
+            for category in output_cats.categories:
+                for x in category.hierarchy:
+                    cats.append(x)
+            st.write("Detected topics:")
+            st.write(cats)
+            st.write("If these topics do not line up with what the speech was about, you might need to use clearer language or avoid steering off topic.\n")
+
+            st.write("Behavioral Characteristics:")
+            output_bev = client.classification(body={"document": {"text": transcript}}, params={'taxonomy': "behavioral-traits", 'language': language})
+            behaviors = []
+            for bev in output_bev.categories:
+                behaviors.append(bev.hierarchy[2])
+            st.write(behaviors)
+ 
 
 
     
