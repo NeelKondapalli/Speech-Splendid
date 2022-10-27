@@ -15,3 +15,12 @@ The speech analysis was done using:
 - Valence Aware Dictionary for eSentiment Reasoning (VADER) for sentiment analysis (proven efficiency on analysis tasks)
 - IBM Watson for transcription and filler word detection
 - expert.ai for topic and behavioral trait detection
+
+Face analysis was done using:
+- Python Facial Expression Analysis Toolbox (py-feat)
+- Models used for analysis & detection:
+  - Emotion classification: Residual Masking Network (ResMaskNet)
+  - AU activation (Facial muscle contractions): Support Vector Machine (SVM)
+  - Landmarking: MobileFaceNet
+  - Face detection: RetinaFace
+  - Face posing: img2pose
