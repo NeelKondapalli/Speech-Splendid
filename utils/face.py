@@ -1,7 +1,7 @@
 import cv2
 import streamlit as st
 from feat import Detector
-
+import math
 
 def load_detector():
     return Detector(
@@ -17,7 +17,7 @@ def analyze_face(tmp_file):
     cap = cv2.VideoCapture(tmp_file.name)
     frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     try:
-        video_prediction = detector.detect_video(tmp_file.name, skip_frames = round(frames/3))
+        video_prediction = detector.detect_video(tmp_file.name, skip_frames = math.trunc(frames/3))
         emotions = ['fear', 'happiness', 'sadness', 'surprise', 'neutral', 'anger', 'disgust']
         readings = []
         for x in emotions:
