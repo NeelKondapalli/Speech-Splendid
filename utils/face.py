@@ -16,28 +16,27 @@ detector = load_detector()
 def analyze_face(tmp_file):
     cap = cv2.VideoCapture(tmp_file.name)
     frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    try:
-        video_prediction = detector.detect_video(tmp_file.name, skip_frames = math.trunc(frames/3))
-        emotions = ['fear', 'happiness', 'sadness', 'surprise', 'neutral', 'anger', 'disgust']
-        readings = []
-        for x in emotions:
-            readings.append(round(sum(video_prediction[x]),2))
-        sorted_emotion = [x for x in sorted(zip(readings, emotions), reverse=True)]
-        #print(sorted_emotion)
-        st.write(f"The top emotions detected were: {sorted_emotion[0][1]}, {sorted_emotion[1][1]}")
-        if sorted_emotion[0][1] != "happiness" and sorted_emotion[0][1] != "happiness":
-            st.write("Tip: Smile more!")
-        with st.expander("Detailed View"):
-            c1,c2,c3,c4,c5,c6,c7 = st.columns(7)
-            c1.metric("Fear", str(readings[0]))
-            c2.metric("Joy", str(readings[1]))
-            c3.metric("Sadness", str(readings[2]))
-            c4.metric("Surprise", str(readings[3]))
-            c5.metric("Neutral", str(readings[4]))
-            c6.metric("Anger", str(readings[5]))
-            c7.metric("Disgust", str(readings[6]))
-    except:
-        st.write("Error: Make sure face is relatively clear/centered in video, otherwise upload a shorter clip.")
+
+    video_prediction = detector.detect_video(tmp_file.name, skip_frames = math.trunc(frames/3))
+    emotions = ['fear', 'happiness', 'sadness', 'surprise', 'neutral', 'anger', 'disgust']
+    readings = []
+    for x in emotions:
+        readings.append(round(sum(video_prediction[x]),2))
+    sorted_emotion = [x for x in sorted(zip(readings, emotions), reverse=True)]
+    #print(sorted_emotion)
+    st.write(f"The top emotions detected were: {sorted_emotion[0][1]}, {sorted_emotion[1][1]}")
+    if sorted_emotion[0][1] != "happiness" and sorted_emotion[0][1] != "happiness":
+        st.write("Tip: Smile more!")
+    with st.expander("Detailed View"):
+        c1,c2,c3,c4,c5,c6,c7 = st.columns(7)
+        c1.metric("Fear", str(readings[0]))
+        c2.metric("Joy", str(readings[1]))
+        c3.metric("Sadness", str(readings[2]))
+        c4.metric("Surprise", str(readings[3]))
+        c5.metric("Neutral", str(readings[4]))
+        c6.metric("Anger", str(readings[5]))
+        c7.metric("Disgust", str(readings[6]))
+
         
     print(video_prediction.head())
     print(video_prediction.shape)
