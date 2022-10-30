@@ -18,8 +18,8 @@ if filename is not None:
 
     st.write("## Speech Analysis Results")
     speechCont = st.container()
-    #with speechCont:
-        #speech.extract_audio(tmp_file)
+    with speechCont:
+        speech.extract_audio(tmp_file)
 
     st.write("## Face Analysis Results")
     faceCont = st.container()
