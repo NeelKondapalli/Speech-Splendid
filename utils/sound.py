@@ -7,7 +7,7 @@ from ibm_watson import SpeechToTextV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from expertai.nlapi.cloud.client import ExpertAiClient
-#DELETE LATER
+
 os.environ["EAI_USERNAME"] = st.secrets["username"]
 os.environ["EAI_PASSWORD"] = st.secrets["password"]
 client = ExpertAiClient()
