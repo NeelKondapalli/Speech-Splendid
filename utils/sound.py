@@ -8,12 +8,12 @@ from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from expertai.nlapi.cloud.client import ExpertAiClient
 
-os.environ["EAI_USERNAME"] = st.secrets["username"]
-os.environ["EAI_PASSWORD"] = st.secrets["password"]
+os.environ["EAI_USERNAME"] ="d"
+os.environ["EAI_PASSWORD"] ="g"
 client = ExpertAiClient()
-authenticator = IAMAuthenticator(st.secrets["key"])
+authenticator = IAMAuthenticator("f")
 speech_to_text = SpeechToTextV1(authenticator=authenticator)
-speech_to_text.set_service_url(st.secrets["url"])
+speech_to_text.set_service_url("f")
 def sentiment_vader(sentence):
     sid_obj = SentimentIntensityAnalyzer()
 

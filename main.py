@@ -6,8 +6,8 @@ from pathlib import Path
 import utils.sound as speech
 import utils.face as face
 
-st.write("# Speech-Splendid")
-
+st.title("Speech-Splendid")
+st.subheader("The New Standard in Speech Practice")
 inputCont = st.container()
 with inputCont:
     filename = st.file_uploader("Choose a recorded speech with your face clearly in frame", accept_multiple_files = False)
