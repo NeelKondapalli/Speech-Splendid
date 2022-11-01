@@ -17,7 +17,6 @@ detector = load_detector()
 def analyze_face(tmp_file):
     cap = cv2.VideoCapture(tmp_file.name)
     frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-    #st.write(frames)
     current_frame = math.trunc(frames/25)
     inc = math.trunc(frames/25)
     count = 0
@@ -31,7 +30,6 @@ def analyze_face(tmp_file):
             break
         try:
             results = DeepFace.analyze(frame, actions = ["emotion"])
-            #st.write(results)
             rows.append(results["emotion"])
         except:
             print("Row crashed")
@@ -50,7 +48,6 @@ def analyze_face(tmp_file):
         emotions_norm = {}
         for i in emotions:
             emotions_norm[i] = float(emotions[i])/sum(emotions.values())
-            #print(str(emotions[i]) + "/" + str(sum(emotions.values())) + "=" + str(float(emotions[i])/sum(emotions.values())))
         c1, c2 = st.columns(2)
         sort_e = dict(sorted(emotions_norm.items(), key=lambda item: item[1], reverse = True))
         max_e = list(sort_e)[0]
@@ -68,31 +65,4 @@ def analyze_face(tmp_file):
             st.write("Tip: Smile More!")
     except:
         st.write("Sorry, we're having some trouble processing that video. Try re-recording it or recording it on a different device.")
-    #st.write(emotions_norm)
-    # video_prediction = detector.detect_video(tmp_file.name, skip_frames = math.trunc(frames/3))
-    # emotions = ['fear', 'happiness', 'sadness', 'surprise', 'neutral', 'anger', 'disgust']
-    # readings = []
-    # print(video_prediction.head())
-    # for x in emotions:
-    #     readings.append(round(sum(video_prediction[x]),2))
-    # sorted_emotion = [x for x in sorted(zip(readings, emotions), reverse=True)]
-    # #print(sorted_emotion)
-    # st.write(f"The top emotions detected were: {sorted_emotion[0][1]}, {sorted_emotion[1][1]}")
-    # if sorted_emotion[0][1] != "happiness" and sorted_emotion[0][1] != "happiness":
-    #     st.write("Tip: Smile more!")
-    # with st.expander("Detailed View"):
-    #     c1,c2,c3,c4,c5,c6,c7 = st.columns(7)
-    #     c1.metric("Fear", str(readings[0]))
-    #     c2.metric("Joy", str(readings[1]))
-    #     c3.metric("Sadness", str(readings[2]))
-    #     c4.metric("Surprise", str(readings[3]))
-    #     c5.metric("Neutral", str(readings[4]))
-    #     c6.metric("Anger", str(readings[5]))
-    #     c7.metric("Disgust", str(readings[6]))
-    #     print(video_prediction.head())
-    #     print(video_prediction.shape)
-    #     print(sorted_emotion)
-    #except:
-        #st.write("There was a problem processing the video. Make sure you are centered in it and that the quality is high. Otherwise, try selecting a smaller clip.")
-
-        
+    
