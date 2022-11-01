@@ -1,6 +1,6 @@
 # Speech-Splendid
 ---
-Online link (if running): https://neelkondapalli-speech-splendid-main-jd535l.streamlitapp.com/
+Online link: https://neelkondapalli-speech-splendid-main-jd535l.streamlitapp.com/
 
 **Overview**
 Speech-Splendid is an app that gives valuable linguistic and facial expression information for speeches. This app is meant to help people with speech anxiety and it serves as a practice platform for anyone who might be nervous about an upcoming speech. It detects:
@@ -17,10 +17,4 @@ The speech analysis was done using:
 - expert.ai for topic and behavioral trait detection
 
 Face analysis was done using:
-- Python Facial Expression Analysis Toolbox (py-feat)
-- Models used for analysis & detection:
-  - Emotion classification: Residual Masking Network (ResMaskNet)
-  - AU activation (Facial muscle contractions): Support Vector Machine (SVM)
-  - Landmarking: MobileFaceNet
-  - Face detection: RetinaFace
-  - Face posing: img2pose
+- DeepFace: A 9-layer convolutional neural network developed by FaceBook.
