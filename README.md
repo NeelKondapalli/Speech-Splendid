@@ -17,4 +17,4 @@ The speech analysis was done using:
 - expert.ai for topic and behavioral trait detection
 
 Face analysis was done using:
-- DeepFace: A 9-layer convolutional neural network developed by FaceBook.
+- DeepFace: A 9-layer convolutional neural network developed by Facebook.
