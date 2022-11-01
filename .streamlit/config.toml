@@ -3,4 +3,4 @@ headless = true
 maxUploadSize = 500
 
 [browser]
-wideMode = True
+wideMode = true
