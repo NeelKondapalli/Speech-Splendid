@@ -1,11 +1,13 @@
 import os
 import streamlit as st
+from PIL import Image
 import tempfile
 from pathlib import Path
 import utils.sound as speech
 import utils.face as face
 
 st.write("# Speech-Splendid")
+
 inputCont = st.container()
 with inputCont:
     filename = st.file_uploader("Choose a recorded speech with your face clearly in frame", accept_multiple_files = False)

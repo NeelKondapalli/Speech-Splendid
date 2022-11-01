@@ -48,6 +48,7 @@ def extract_audio(video_file):
     analyze_speech(audio_path)
 
 def analyze_speech(filename):
+    feedback = []
     with contextlib.closing(wave.open(filename,'r')) as f:
         frames = f.getnframes()
         rate = f.getframerate()
@@ -71,17 +72,17 @@ def analyze_speech(filename):
     c3.metric("Positive", str(round(positive))+ "%")
     c4.metric("Neutral", str(round(neutral)) + "%")
     c5.metric("Negative", str(round(negative)) + "%")
-
+    st.write("### Linguistic Analysis Scores")
     c1, c2 = st.columns(2)
     with c1:
         if seconds:
-            st.write(f"Words/Minute ≈ {round((len(transcript.split()))*60/seconds)}")
-            st.write("(RECOMMENDED): 120-160 WPM")
+            wpm = round((len(transcript.split()))*60/seconds)
+            st.write(f"Words/Minute ≈ {wpm}")
     fluff = ['um', 'uh', 'ah', 'er', 'oh']
     fluff_c = 0
-    hedging = ['i mean', 'i guess', 'i suppose']
+    hedging = ['i mean', 'i guess', 'i suppose', 'i think', 'you know']
     hedge_c = 0
-    filler_adverbs = ['very', 'really']
+    filler_adverbs = ['very', 'really', 'totally', 'actually', 'basically', 'seriously']
     ad_c = 0
     tlist = transcript.split()
     for x in tlist:
@@ -92,10 +93,23 @@ def analyze_speech(filename):
     for x in range(len(tlist)-1):
         if (tlist[x] + " " + tlist[x+1]) in hedging:
             hedge_c += 1
+    fluff_score = round((fluff_c/len(tlist)) * 100)
+    hedge_score = round((hedge_c/len(tlist)) * 100)
+    adverb_score = round((ad_c/len(tlist)) * 100)
     with c1:
-        st.write(f"Filler word count: {fluff_c} ({round((fluff_c/len(tlist)) * 100)}%)")
-        st.write(f"Hedging language word count: {hedge_c} ({round((hedge_c/len(tlist)) * 100)}%)")
-        st.write(f"Empty Adverb word count: {ad_c} ({round((ad_c/len(tlist)) * 100)}%)")
+        st.write(f"Filler word count: {fluff_c} ({fluff_score}%)")
+        st.write(f"Hedging language word count: {hedge_c} ({hedge_score}%)")
+        st.write(f"Empty Adverb word count: {ad_c} ({adverb_score}%)")
+    if fluff_score:
+        feedback.append("- Use less filler words such as 'uh', 'ah', or 'um'. These words add uncertainty to your speech and indicate a lack of confidence. Practice the speech more so you pause less.")
+    if hedge_score:
+        feedback.append("- Phrases such as 'I mean', 'I guess', or 'I suppose' are known as hedging language, and they decrease the confidence of your speech. Decrease your usage of them")
+    if adverb_score:
+        feedback.append("- Adverbs such as 'really', 'very', and 'totally' are unnecessary in most cases and can be eliminated with better word choice. Try searching up words that are equivalent to what you are trying to say")
+    if wpm < 120:
+        feedback.append(f"- Your words/min rate was {wpm}. For most speeches, the recommended rate is between 120 and 160. Try speaking a bit faster on your next try.")
+    if wpm > 160:
+        feedback.append(f"- Your words/minute rate was {wpm}. For most speeches, the recommended rate is between 120 and 160. Try slowing down on your next try.")
     with c2:
         with st.expander("Metric Information"):
                 st.write("Overall Sentiment: The general emotion in the text. Calculated via the compound score")
@@ -103,7 +117,7 @@ def analyze_speech(filename):
                 st.write("Filler Word Count: Filler words such as 'uh' and 'um' drastically decrease the confidence of your speech.")
                 st.write("Hedging Language: Language such as 'I mean' or 'I guess' indicate a lack of confidence")
                 st.write("Empty Adverbs: Adverbs such as 'really' or 'very' should be avoided and replaced with better language.")
-        with st.expander("View Linguistic Analysis"):
+        with st.expander("Topic & Behavioral Analysis"):
             taxonomy = 'iptc'
             language= 'en'
             output_cats = client.classification(body={"document": {"text": transcript}}, params={'taxonomy': taxonomy, 'language': language})
@@ -121,6 +135,9 @@ def analyze_speech(filename):
             for bev in output_bev.categories:
                 behaviors.append(bev.hierarchy[2])
             st.write(behaviors)
+    with st.expander("Feedback"):
+        for x in feedback:
+            st.write(x)
  
 
 

@@ -64,6 +64,8 @@ def analyze_face(tmp_file):
             c6.metric(list(sort_e)[4], str(round(list(sort_e.values())[4], 2)))
             c7.metric(list(sort_e)[5], str(round(list(sort_e.values())[5], 2)))
             c8.metric(list(sort_e)[6], str(round(list(sort_e.values())[6], 2)))
+        if (max_e == "sad" or max_e == "anger"):
+            st.write("Tip: Smile More!")
     except:
         st.write("Sorry, we're having some trouble processing that video. Try re-recording it or recording it on a different device.")
     #st.write(emotions_norm)
