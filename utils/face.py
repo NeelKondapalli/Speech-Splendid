@@ -4,15 +4,15 @@ from feat import Detector
 import math
 from deepface import DeepFace
 import pandas as pd
-def load_detector():
-    return Detector(
-        face_model = "retinaface",
-        landmark_model = "mobilefacenet",
-        au_model = "svm",
-        emotion_model = "resmasknet",
-        facepose_model = "img2pose",
-    )
-detector = load_detector()
+# def load_detector():
+#     return Detector(
+#         face_model = "retinaface",
+#         landmark_model = "mobilefacenet",
+#         au_model = "svm",
+#         emotion_model = "resmasknet",
+#         facepose_model = "img2pose",
+#     )
+# detector = load_detector()
 
 def analyze_face(tmp_file):
     cap = cv2.VideoCapture(tmp_file.name)
